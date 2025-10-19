@@ -14,13 +14,14 @@ export default function Register(){
         e.preventDefault();
         setErr(""); setMes("");
         try{
-            await api.post("/auth/regiter", {password, email});
+            await api.post("/auth/register", {password, email});
             setMes("注册成功");
             setTimeout(() => {
                navigate("/Login"); 
             }, 800);
         } catch(e: any){
             setErr(e?.response?.data?.message || "注册失败");
+            console.error(e)
         }
     }
 

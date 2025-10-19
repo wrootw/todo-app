@@ -6,7 +6,7 @@ import User from "../models/User.js"
 
 const r= Router();
 
-r.post("./register", async (req,res) => {
+r.post("/register", async (req,res) => {
     const { email,password }= req.body || {};
     if (!email || !password) return res.status(400).json({ message: "email & passwork require" });
     if (await User.findOne({ email })) return res.status(409).json({ message: "Email is Already Register" });
@@ -15,7 +15,7 @@ r.post("./register", async (req,res) => {
     res.status(201).json({ id:user._id, email:user.email })
 });
 
-r.post("./login", async (req,res) => {
+r.post("/login", async (req,res) => {
     const { email,password }= req.body || {};
     const user= await User.findOne({ email });
     if (!user || !(await bcrypt.compare(password,user.password)))

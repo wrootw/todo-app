@@ -14,7 +14,7 @@ app.get("/api/auth", auth, (req,res) => {
     res.json([{id:1, titile:"Demo", ownel: req.user.email}])
 })
 
-const Port= process.env.PORT || 5000;
-mongoose.connect(MONGODB_UR).then(
-    app.listen(Port, () => console.log(`API:http://localhost:${Port}`))
-)
+const PORT= process.env.PORT || 5000;
+mongoose.connect(process.env.MONGODB_URL).then(() => {
+    app.listen(PORT, () => console.log(`API:http://localhost:${PORT}`));
+});

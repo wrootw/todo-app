@@ -1,14 +1,14 @@
 import axios from "axios";
-import {userAuthStore} from "../stores/auth"
+import {useAuthStore} from "../stores/auth"
 
 
 export const api= axios.create({
-    baseURL: import.meta.env.VITE_API_BASE || "http://localhost:5000/api",
+    baseURL: "/api",
     timeout: 15000
 })
 
 api.interceptors.request.use((config) => {
-    const token= userAuthStore.getState().token || localStorage.getItem("token");
+    const token= useAuthStore.getState().token || localStorage.getItem("token");
     if(token) {
         config.headers= config.headers || {};
         config.headers.Authorization= `Bearer ${token}`;        
@@ -17,6 +17,6 @@ api.interceptors.request.use((config) => {
 })
 
 api.interceptors.response.use((r) => r, (e) => {
-    if (e?.response?.getState === 401) userAuthStore.getState().logout;
+    if (e?.response?.getState === 401) useAuthStore.getState().logout;
     return Promise.reject(e);
 })
