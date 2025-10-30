@@ -16,7 +16,10 @@ api.interceptors.request.use((config) => {
     return config;
 })
 
-api.interceptors.response.use((r) => r, (e) => {
-    if (e?.response?.getState === 401) useAuthStore.getState().logout;
-    return Promise.reject(e);
+api.interceptors.response.use((res) => res, (err) => {
+    const status= err?.response.status;
+    const token = useAuthStore.getState().token || localStorage.getItem("token");
+    console.log("[send token]", token?.slice(0, 24));
+    if (status === 401) useAuthStore.getState().logout();
+    return Promise.reject(err);
 })

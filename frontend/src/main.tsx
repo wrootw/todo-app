@@ -5,23 +5,26 @@ import  Login  from "./pages/login";
 import  Register  from "./pages/regiter";
 import { useAuthStore } from "./stores/auth";
 import "./index.css";
+import TasksPage from "./pages/tasks";
 
 
 
 function PrivateRouter({children}:{children: ReactNode }){
-  const token= useAuthStore((e => e.token)) || localStorage.getItem("token");
+  const token= useAuthStore((s => s.token)) || localStorage.getItem("token");
   return token? children : <Navigate to="/login" replace />
 }
 
-function TasksPage(){
-  return <div style={{padding:24}}>TasksPage 页面显示</div>
+function HomeGate() {
+  const token = useAuthStore(s => s.token) || localStorage.getItem("token");
+  return <Navigate to={token ? "/tasks" : "/login"} replace />;
 }
 
+
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
+  
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navigate to="/tasks" replace />} />        
+        <Route path="/" element={<HomeGate />} />        
           <Route 
             path="/tasks" 
             element={
@@ -33,6 +36,6 @@ createRoot(document.getElementById("root")!).render(
         <Route path="/register" element={<Register />} />
       </Routes>
     </BrowserRouter>
-  </StrictMode>
+ 
 );
 
