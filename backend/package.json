@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon src/app.js"
+  "scripts": {   
+    "dev": "nodemon src/server.js",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "keywords": [],
   "author": "",
@@ -20,8 +21,13 @@
     "mongoose": "^8.17.0"
   },
   "devDependencies": {
+    "@types/supertest": "^6.0.3",
+    "cross-env": "^10.1.0",
     "eslint": "^9.32.0",
+    "mongodb-memory-server": "^10.3.0",
     "nodemon": "^3.1.10",
-    "prettier": "^3.6.2"
+    "prettier": "^3.6.2",
+    "supertest": "^7.1.4",
+    "vitest": "^4.0.6"
   }
 }

@@ -1,10 +1,9 @@
 import express from "express";
-import "dotenv/config";
-import mongoose from "mongoose";
 import cors from "cors";
 import authRouter from "./routes/auth.router.js";
 import { auth } from "./middlewares/auth.js"
 import taskRouter from "./routes/tasks.router.js"
+import "dotenv/config"
 
 const app= express();
 app.use(cors());
@@ -17,7 +16,5 @@ app.get("/api/auth", auth, (req,res) => {
 app.use("/api/tasks",taskRouter);
 
 
-const PORT= process.env.PORT || 5000;
-mongoose.connect(process.env.MONGODB_URL).then(() => {
-    app.listen(PORT, () => console.log(`API:http://localhost:${PORT}`));
-});
+export default app;
+
