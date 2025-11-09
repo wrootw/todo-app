@@ -1,6 +1,6 @@
 {
     "name": "todo-app",
-    "private": true,
+    "private": true,    
     "packageManager": "pnpm@10.0.0",
     "workspaces": [
         "frontend",
